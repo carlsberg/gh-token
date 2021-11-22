@@ -34,7 +34,7 @@ jobs:
       - name: Bump Version
         run: |
           brew install carlsberg/tap/git-semver
-          git semver bump -u ${{ secrets.CB_RELEASE_BOT_NAME }} -P ${{ steps.release-bot.outputs.token }} -f ./gh-token:tag --v-prefix
+          git semver bump -u ${{ secrets.CB_RELEASE_BOT_NAME }} -P ${{ steps.release-bot.outputs.token }} -f gh-token:tag --v-prefix
 
       - name: GoReleaser
         uses: goreleaser/goreleaser-action@v2
