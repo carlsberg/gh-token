@@ -20,6 +20,8 @@ jobs:
         with:
           go-version: ~1.17
 
+      - run: git status
+
       - id: release-bot
         name: Authenticate with Release Bot
         uses: getsentry/action-github-app-token@v1
