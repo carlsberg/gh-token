@@ -12,21 +12,21 @@ exe=""
 
 if uname -a | grep Msys > /dev/null; then
   if [ $arch = "x86_64" ]; then
-    exe="$name_${tag}_Windows_x86_64.exe"
+    exe="${name}_${tag#v}_Windows_x86_64.exe"
   elif [ $arch = "arm64" ]; then
-    exe="$name_${tag}_Windows_arm64"
+    exe="${name}_${tag#v}_Windows_arm64"
   fi
 elif uname -a | grep Darwin > /dev/null; then
   if [ $arch = "x86_64" ]; then
-    exe="$name_${tag}_Darwin_x86_64"
+    exe="${name}_${tag#v}_Darwin_x86_64"
   elif [ $arch = "arm64" ]; then
-    exe="$name_${tag}_Darwin_arm64"
+    exe="${name}_${tag#v}_Darwin_arm64"
   fi
 elif uname -a | grep Linux > /dev/null; then
   if [ $arch = "x86_64" ]; then
-    exe="$name_${tag}_Linux_x86_64"
+    exe="${name}_${tag#v}_Linux_x86_64"
   elif [ $arch = "arm64" ]; then
-    exe="$name_${tag}_Linux_arm64"
+    exe="${name}_${tag#v}_Linux_arm64"
   fi
 fi
 
@@ -47,10 +47,11 @@ else
     mkdir -p "${extensionPath}/tmp"
     rm -f "${extensionPath}/bin/*"
     gh release -R"${repo}" download "${tag}" -p "${exe}.tar.gz" --dir="${extensionPath}/tmp"
-    tar -C "${extensionPath}/tmp" -zxvf "${extensionPath}/tmp/${exe}.tar.gz"
+    tar -C "${extensionPath}/tmp" -zxf "${extensionPath}/tmp/${exe}.tar.gz"
     mv "${extensionPath}/tmp/${name}" "${extensionPath}/bin"
     chmod +x "${extensionPath}/bin/${name}"
+    rm -rf "${extensionPath}/tmp"
   fi
 fi
 
-exec "${extensionPath}/bin/${exe}" "$@"
+exec "${extensionPath}/bin/gh-token" "$@"
