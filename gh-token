@@ -42,7 +42,7 @@ if [ "${exe}" == "" ]; then
   go build -o "${exe}"
   cd - > /dev/null
 else
-  if [[ ! -x "${extensionPath}/bin/${exe}" ]]; then
+  if [[ ! -x "${extensionPath}/bin/gh-token" ]]; then
     mkdir -p "${extensionPath}/bin"
     mkdir -p "${extensionPath}/tmp"
     rm -f "${extensionPath}/bin/*"
